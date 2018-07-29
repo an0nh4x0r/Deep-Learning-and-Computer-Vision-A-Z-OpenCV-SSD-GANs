@@ -18,3 +18,17 @@ def detect(gray, frame):
         for (ex, ey, ew, eh) in eye:
             cv2.rectangle(roi_color, (ex, ey),(ex+ew, ey+eh), (0, 255, 0), 2)
     return frame
+
+# Doing some face recognition with the webcam
+video_capture = cv2.VideoCapture(0)
+while True:
+    _, frame = video_capture.read()
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    canvas = detect(gray, frame)
+    cv2.imshow('Video', canvas)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+video_capture.release()
+cv2.destroyAllWindows()
+cv2.waitKey(1)
